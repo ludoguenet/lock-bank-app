@@ -9,16 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class BankService
 {
-    public function demo($var)
-    {
-        return $var;
-    }
-
-    public static function sendMoney(string $from, string $to, float $amount)
+    public static function transferFunds(int $from, int $to, float $amount)
     {
         return DB::transaction(function () use ($from, $to, $amount) {
-            $from = User::lockForUpdate()->find($from);
-            $to = User::lockForUpdate()->find($to);
+            $from = User::findOrFail($from);
+            $to = User::findOrFail($to);
 
             if ($from->balance < $amount) {
                 return false;

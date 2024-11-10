@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(3)
             ->forEachSequence(
-                ['id' => 1, 'name' => 'John', 'balance' => 100],
+                ['id' => 1, 'name' => 'John', 'balance' => 500],
                 ['id' => 2, 'name' => 'Alicia'],
                 ['id' => 3, 'name' => 'Phillipe'])
             ->create();

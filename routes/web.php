@@ -5,17 +5,25 @@ use App\Services\BankService;
 use Illuminate\Support\Facades\Concurrency;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Route::view('/', 'bank');
 
+Route::post('/transfer-funds', function () {
     $fromAccount = 1;
     $toAccountOne = 2;
     $toAccountTwo = 3;
     $amount = 500;
 
-    $res = Concurrency::run([
-        fn () => BankService::transferFunds($fromAccount, $toAccountOne, $amount),
-        fn () => BankService::transferFunds($fromAccount, $toAccountTwo, $amount),
-    ]);
+    $closures = [];
+
+    for ($i = 0; $i < 2; $i++) {
+        if ($i === 0) {
+            $closures[] = fn () => BankService::transferFunds($fromAccount, $toAccountOne, $amount);
+        } else {
+            $closures[] = fn () => BankService::transferFunds($fromAccount, $toAccountTwo, $amount);
+        }
+    }
+
+    $res = Concurrency::run($closures);
 
     dump($res);
 
@@ -24,6 +32,4 @@ Route::get('/', function () {
     $user3 = User::query()->find($toAccountTwo);
 
     dump($user1->balance, $user2->balance, $user3->balance);
-});
-
-Route::view('/bank', 'bank');
+})->name('transfer-funds');

@@ -12,8 +12,8 @@ class BankService
     public static function transferFunds(int $from, int $to, float $amount)
     {
         return DB::transaction(function () use ($from, $to, $amount) {
-            $from = User::findOrFail($from);
-            $to = User::findOrFail($to);
+            $from = User::query()->findOrFail($from);
+            $to = User::query()->findOrFail($to);
 
             if ($from->balance < $amount) {
                 return false;

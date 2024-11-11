@@ -168,8 +168,10 @@
                 <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Transfert d'argent</h2>
 
                 <div class="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12">
-                    <form action="#"
+                    <form action="{{ route('transfer-funds') }}"
+                        method="post"
                         class="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8">
+                        @csrf
                         <div class="mb-6 grid grid-cols-2 gap-4">
                             <div class="col-span-2 sm:col-span-1">
                                 <label for="full_name"
@@ -177,7 +179,7 @@
                                     (comme sur la carte)*</label>
                                 <input type="text" id="full_name"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-green-500 dark:focus:ring-green-500"
-                                    placeholder="Jean Dupont" required />
+                                    placeholder="Jean Dupont" />
                             </div>
 
                             <div class="col-span-2 sm:col-span-1">
@@ -186,7 +188,7 @@
                                     carte*</label>
                                 <input type="text" id="card-number-input"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pe-10 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-green-500 dark:focus:ring-green-500"
-                                    placeholder="xxxx-xxxx-xxxx-xxxx" required />
+                                    placeholder="xxxx-xxxx-xxxx-xxxx" />
                             </div>
 
                             <div>
@@ -194,7 +196,7 @@
                                     class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Expiration*</label>
                                 <input type="text" id="card-expiration-input"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                                    placeholder="MM/AA" required />
+                                    placeholder="MM/AA" />
                             </div>
 
                             <div>
@@ -217,7 +219,7 @@
                                 </label>
                                 <input type="number" id="cvv-input"
                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-green-500 dark:focus:ring-green-500"
-                                    placeholder="•••" required />
+                                    placeholder="•••" />
                             </div>
                             <div>
                                 <label for="email" class="block text-sm/6 font-medium text-gray-900">Somme à
@@ -246,7 +248,7 @@
                             </div>
                         </div>
 
-                        <button type="button"
+                        <button type="submit"
                             class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:border-gray-700 dark:text-gray-900 dark:hover:bg-gray-200 me-2 mb-2">
                             <svg aria-hidden="true" class="w-10 h-3 me-2 -ms-1" viewBox="0 0 660 203" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">

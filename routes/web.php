@@ -25,3 +25,5 @@ Route::get('/', function () {
 
     dump($user1->balance, $user2->balance, $user3->balance);
 });
+
+Route::view('/bank', 'bank');

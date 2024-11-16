@@ -6,6 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const smoothScrollLinks = document.querySelectorAll('a[href^="#"]');
+
+        smoothScrollLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
+    </script>
+
+    </script>
     <style>
         @keyframes scroll-down {
 
@@ -99,7 +122,7 @@
         </div>
     </div>
 
-    <div class="isolate overflow-hidden bg-gray-900" id="next-section">
+    <div class="isolate overflow-hidden bg-gray-900">
         <div class="mx-auto max-w-7xl px-6 pb-96 pt-24 text-center sm:pt-32 lg:px-8">
             <div class="mx-auto max-w-4xl">
                 <h2 class="text-base/7 font-semibold text-green-400">Tarifs</h2>
@@ -162,14 +185,13 @@
         </div>
     </div>
 
-    <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+    <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16" id="next-section">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
             <div class="mx-auto max-w-5xl">
                 <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Transfert d'argent</h2>
 
                 <div class="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12">
-                    <form action="{{ route('transfer-funds') }}"
-                        method="post"
+                    <form action="{{ route('transfer-funds') }}" method="post"
                         class="w-full rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6 lg:max-w-xl lg:p-8">
                         @csrf
                         <div class="mb-6 grid grid-cols-2 gap-4">
@@ -238,12 +260,13 @@
                                 </div>
                             </div>
                             <div>
-                                <label for="location" class="block text-sm/6 font-medium text-gray-900">Vos
+                                <label for="beneficiary" class="block text-sm/6 font-medium text-gray-900">Vos
                                     bénéficiaires</label>
-                                <select id="location" name="location"
-                                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm/6">
-                                    <option selected>Utilisateur 1</option>
-                                    <option>Utilisateur 2</option>
+                                <select id="beneficiary" name="beneficiary[]"
+                                    class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm/6" multiple>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
